@@ -1,10 +1,20 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  TextEditingController email = TextEditingController();
+
+  TextEditingController password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -18,61 +28,88 @@ class LoginScreen extends StatelessWidget {
         backgroundColor: Colors.lightGreenAccent,
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: TextFormField(
-                        validator: (v) {
-                          if (v!.isEmpty) {
-                            return "Email can't be empty";
-                          } else if (!EmailValidator.validate(v)) {
-                            return "Email not valid";
-                          }
+        child: Stack(children: [
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: SvgPicture.asset(
+              "assets/splashback.svg",
+              fit: BoxFit.cover,
+            ),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: TextFormField(
+                          style: const TextStyle(color: Colors.white),
+                          controller: email,
+                          // onChanged: (v) {
+                          //   setState(() {
+                          //     password.text = email.text;
+                          //   });
+                          // },
+                          validator: (v) {
+                            if (v!.isEmpty) {
+                              return "Email can't be empty";
+                            } else if (!EmailValidator.validate(v)) {
+                              return "Email not valid";
+                            }
 
-                          return null;
-                        },
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: "Username/ E-mail "),
+                            return null;
+                          },
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: const InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white)),
+                              border: OutlineInputBorder(),
+                              hintText: "Username/ E-mail ",
+                              hintStyle: TextStyle(color: Colors.white)),
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: TextFormField(
-                        obscuringCharacter: "#",
-                        obscureText: true,
-                        validator: (v) {
-                          if (v!.isEmpty) {
-                            return "Password can't be empty";
-                          }
-                          return null;
-                        },
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: const InputDecoration(
-                            border: OutlineInputBorder(), hintText: "Password"),
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: TextFormField(
+                          controller: password,
+                          //obscuringCharacter: "#",
+                          //obscureText: true,
+                          validator: (v) {
+                            if (v!.isEmpty) {
+                              return "Password can't be empty";
+                            }
+                            return null;
+                          },
+                          keyboardType: TextInputType.emailAddress,
+
+                          decoration: const InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white)),
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white)),
+                              hintText: "Password",
+                              hintStyle: TextStyle(color: Colors.white)),
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            print("Validated");
-                          }
-                        },
-                        child: const Text("Login"))
-                  ],
-                ))
-          ],
-        ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              password.text = email.text;
+                            });
+                          },
+                          child: const Text("Login"))
+                    ],
+                  ))
+            ],
+          ),
+        ]),
       ),
     );
   }
