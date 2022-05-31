@@ -1,3 +1,4 @@
+import 'package:bsection/ui/home.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -100,9 +101,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       ElevatedButton(
                           onPressed: () {
-                            setState(() {
-                              password.text = email.text;
-                            });
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Home()));
                           },
                           child: const Text("Login"))
                     ],
