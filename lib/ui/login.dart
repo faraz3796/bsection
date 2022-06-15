@@ -77,8 +77,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: const EdgeInsets.all(15.0),
                         child: TextFormField(
                           controller: password,
-                          //obscuringCharacter: "#",
-                          //obscureText: true,
+                          // obscuringCharacter: "#",
+                          // obscureText: true,
                           validator: (v) {
                             if (v!.isEmpty) {
                               return "Password can't be empty";

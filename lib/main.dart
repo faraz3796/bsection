@@ -1,13 +1,13 @@
 import 'dart:async';
 
+import 'package:bsection/ui/buttonds.dart';
 import 'package:bsection/ui/home_grid.dart';
-import 'package:bsection/ui/login.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: HomeGrid(),
+    home: Buttons(),
   ));
 }
 
@@ -24,8 +24,8 @@ class _SplashState extends State<Splash> {
     // TODO: implement initState
     super.initState();
     Timer(const Duration(seconds: 5), () {
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => const LoginScreen()));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const Buttons()));
     });
   }
 
